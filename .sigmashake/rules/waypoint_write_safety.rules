@@ -6,7 +6,7 @@ rule waypoint-block-unsafe-patterns {
   priority 90
   severity error
   DENY write
-  IF path GLOB "**/*" AND content CONTAINS "UNSAFE_waypoint_PATTERN"
+  IF path GLOB "**/*" AND content CONTAINS "NOMAD_SKIP_VERIFY=true"
   MESSAGE "Blocked an unsafe pattern in waypoint. Use the recommended best practices for 2025/2026."
 }
 
@@ -14,7 +14,7 @@ rule waypoint-force-updated-api {
   enabled true
   priority 80
   severity warning
-  ASK write
-  IF path GLOB "**/*" AND content CONTAINS "OLD_waypoint_API"
+  LOG write
+  IF path GLOB "**/*" AND content CONTAINS "waypoint.hcl with multiple apps"
   MESSAGE "You are using an outdated API for waypoint. Please upgrade to the newer API."
 }
